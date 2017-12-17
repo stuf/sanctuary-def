@@ -4,7 +4,11 @@
   "env": {"node": true},
   "globals": {"suite": false, "test": false},
   "rules": {
+    "func-call-spacing": ["error", "always", {"allowNewlines": true}],
+    "indent": ["off"],
     "max-len": ["off"],
+    "no-unexpected-multiline": ["off"],
+    "no-whitespace-before-property": ["off"],
     "object-shorthand": ["error", "always"]
   }
 }
