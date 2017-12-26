@@ -7,8 +7,8 @@
     "func-call-spacing": ["error", "always", {"allowNewlines": true}],
     "indent": ["off"],
     "max-len": ["off"],
+    "no-extra-parens": ["off"],
     "no-unexpected-multiline": ["off"],
-    "no-whitespace-before-property": ["off"],
     "object-shorthand": ["error", "always"]
   }
 }

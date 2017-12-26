@@ -4,7 +4,7 @@ const assert = require ('assert');
 const vm = require ('vm');
 
 const Z = require ('sanctuary-type-classes');
-const Z$version = require ('sanctuary-type-classes/package.json') .version;
+const Z$version = (require ('sanctuary-type-classes/package.json')).version;
 const type = require ('sanctuary-type-identifiers');
 
 const $ = require ('..');
@@ -378,14 +378,14 @@ See https://github.com/sanctuary-js/sanctuary-def/tree/v${version}#Function for 
         ([$.Number, $.Number, $.Number])
         (x => y => x + y);
 
-    eq (add .inspect (), 'add :: Number -> Number -> Number');
-    eq (add .toString (), 'add :: Number -> Number -> Number');
+    eq (add.inspect (), 'add :: Number -> Number -> Number');
+    eq (add.toString (), 'add :: Number -> Number -> Number');
 
-    eq ($0 .toString (), '$0 :: () -> Array a');
-    eq ($1 .toString (), '$1 :: a -> Array a');
-    eq ($2 .toString (), '$2 :: a -> a -> Array a');
-    eq ($3 .toString (), '$3 :: a -> a -> a -> Array a');
-    eq ($26 .toString (), '$26 :: a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> Array a');
+    eq ($0.toString (), '$0 :: () -> Array a');
+    eq ($1.toString (), '$1 :: a -> Array a');
+    eq ($2.toString (), '$2 :: a -> a -> Array a');
+    eq ($3.toString (), '$3 :: a -> a -> a -> Array a');
+    eq ($26.toString (), '$26 :: a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> a -> Array a');
   });
 
   test ('returns a curried function', () => {
@@ -1029,7 +1029,7 @@ Since there is no type of which all the above values are members, the type-varia
     def ('inc')
         ({})
         ([$.Date, $.Date])
-        (date => new Date (date .valueOf () + 1));
+        (date => new Date (date.valueOf () + 1));
 
     eq (inc (new Date (42)), new Date (43));
     eq (inc (vm.runInNewContext ('new Date(42)')), new Date (43));
@@ -1061,7 +1061,7 @@ Since there is no type of which all the above values are members, the type-varia
     eq (id (x), x);
 
     const z = [];
-    z .push (z);
+    z.push (z);
 
     throws (
       () => id (z),
@@ -1122,7 +1122,7 @@ Since there is no type of which all the above values are members, the type-varia
         (function recur(unit) {
            return function(date) {
              switch (unit) {
-               case 'milliseconds': return date .valueOf ();
+               case 'milliseconds': return date.valueOf ();
                case 'seconds':      return recur ('milliseconds') (date) / 1000;
                case 'minutes':      return recur ('seconds') (date) / 60;
                case 'hours':        return recur ('minutes') (date) / 60;
@@ -1388,7 +1388,7 @@ See https://github.com/sanctuary-js/sanctuary-def/tree/v${version}#Type for info
     def ('toUpper')
         ({})
         ([$.Nullable ($.String), $.Nullable ($.String)])
-        (ns => ns === null ? null : ns .toUpperCase ());  // eslint-disable-line eqeqeq
+        (ns => ns === null ? null : ns.toUpperCase ());  // eslint-disable-line eqeqeq
 
     eq (toUpper (null), null);
     eq (toUpper ('abc'), 'ABC');
@@ -1487,8 +1487,8 @@ Since there is no type of which all the above values are members, the type-varia
   });
 
   test ('provides the "Array" type constructor', () => {
-    eq ($.Array (a) .name, 'Array');
-    eq ($.Array (a) .url, `https://github.com/sanctuary-js/sanctuary-def/tree/v${version}#Array`);
+    eq (($.Array (a)).name, 'Array');
+    eq (($.Array (a)).url, `https://github.com/sanctuary-js/sanctuary-def/tree/v${version}#Array`);
   });
 
   test ('provides the "Boolean" type', () => {
@@ -1507,13 +1507,13 @@ Since there is no type of which all the above values are members, the type-varia
   });
 
   test ('provides the "Function" type constructor', () => {
-    eq ($.Function ([a, a]) .name, '');
-    eq ($.Function ([a, a]) .url, '');
+    eq (($.Function ([a, a])).name, '');
+    eq (($.Function ([a, a])).url, '');
   });
 
   test ('provides the "NonEmpty" type constructor', () => {
-    eq ($.NonEmpty ($.String) .name, 'sanctuary-def/NonEmpty');
-    eq ($.NonEmpty ($.String) .url, `https://github.com/sanctuary-js/sanctuary-def/tree/v${version}#NonEmpty`);
+    eq (($.NonEmpty ($.String)).name, 'sanctuary-def/NonEmpty');
+    eq (($.NonEmpty ($.String)).url, `https://github.com/sanctuary-js/sanctuary-def/tree/v${version}#NonEmpty`);
 
     const isNonEmptyIntegerArray = $.test ($.env) ($.NonEmpty ($.Array ($.Integer)));
     eq (isNonEmptyIntegerArray ([]), false);
@@ -1527,8 +1527,8 @@ Since there is no type of which all the above values are members, the type-varia
   });
 
   test ('provides the "Nullable" type constructor', () => {
-    eq ($.Nullable (a) .name, 'sanctuary-def/Nullable');
-    eq ($.Nullable (a) .url, `https://github.com/sanctuary-js/sanctuary-def/tree/v${version}#Nullable`);
+    eq (($.Nullable (a)).name, 'sanctuary-def/Nullable');
+    eq (($.Nullable (a)).url, `https://github.com/sanctuary-js/sanctuary-def/tree/v${version}#Nullable`);
   });
 
   test ('provides the "Number" type', () => {
@@ -1585,7 +1585,7 @@ Since there is no type of which all the above values are members, the type-varia
     def ('sinceEpoch')
         ({})
         ([$.ValidDate, $.Number])
-        (date => date .valueOf () / 1000);
+        (date => date.valueOf () / 1000);
 
     throws (
       () => sinceEpoch (new Date ('foo')),
@@ -1830,8 +1830,8 @@ See https://github.com/sanctuary-js/sanctuary-def/tree/v${version}#ValidDate for
     eq ($.StrMap.length, 1);
     eq (String ($.StrMap), 'StrMap :: Type -> Type');
     eq (String ($.StrMap (a)), '(StrMap a)');
-    eq ($.StrMap (a) .name, 'sanctuary-def/StrMap');
-    eq ($.StrMap (a) .url, `https://github.com/sanctuary-js/sanctuary-def/tree/v${version}#StrMap`);
+    eq (($.StrMap (a)).name, 'sanctuary-def/StrMap');
+    eq (($.StrMap (a)).url, `https://github.com/sanctuary-js/sanctuary-def/tree/v${version}#StrMap`);
 
     //    id :: a -> a
     const id =
@@ -1845,14 +1845,14 @@ See https://github.com/sanctuary-js/sanctuary-def/tree/v${version}#ValidDate for
     def ('keys')
         ({})
         ([$.StrMap (a), $.Array ($.String)])
-        (m => Object.keys (m) .sort ());
+        (m => (Object.keys (m)).sort ());
 
     //    values :: StrMap a -> Array a
     const values =
     def ('values')
         ({})
         ([$.StrMap (a), $.Array (a)])
-        (m => keys (m) .map (k => m[k]));
+        (m => Z.map (k => m[k], keys (m)));
 
     const o = Object.create (null);
     o.x = 1;
@@ -1957,8 +1957,8 @@ Since there is no type of which all the above values are members, the type-varia
     eq ($.Pair.length, 1);
     eq (String ($.Pair), 'Pair :: Type -> Type -> Type');
     eq (String ($.Pair (a) (b)), '(Pair a b)');
-    eq ($.Pair (a) (b) .name, 'sanctuary-def/Pair');
-    eq ($.Pair (a) (b) .url, `https://github.com/sanctuary-js/sanctuary-def/tree/v${version}#Pair`);
+    eq (($.Pair (a) (b)).name, 'sanctuary-def/Pair');
+    eq (($.Pair (a) (b)).url, `https://github.com/sanctuary-js/sanctuary-def/tree/v${version}#Pair`);
 
     //    fst :: Pair a b -> a
     const fst =
@@ -2021,14 +2021,14 @@ See https://github.com/sanctuary-js/sanctuary-def/tree/v${version}#Pair for info
       [new Date ('XXX'), 'Date'],
       [new Number (-0), ''],
       [new String (''), ''],
-      [/x/ .exec ('xyz'), 'Array String'],
+      [/x/.exec ('xyz'), 'Array String'],
       [(() => { const xs = [1, 2, 3]; xs.z = 0; xs.a = 0; return xs; }) (), 'Array Number'],
       [{toString: null}, 'Object, StrMap Null'],
       [new Point (0, 0), 'Object, StrMap Number'],
       [o1, 'Object, StrMap ???'],
     ];
 
-    values .forEach (pair => {
+    values.forEach (pair => {
       const x = pair[0];
       const types = pair[1];
       throws (
@@ -2628,7 +2628,7 @@ See https://github.com/sanctuary-js/sanctuary-def/tree/v${version}#Number for in
         (f => xs => {
            const result = [];
            for (let idx = 0; idx < xs.length; idx += 1) {
-             result .push (f (idx === 3 ? null : xs[idx]));
+             result.push (f (idx === 3 ? null : xs[idx]));
            }
            return result;
          });
@@ -2704,7 +2704,7 @@ The value at position 1 is not a member of ‘(a, b) -> a’.
         (f => x => {
            const result = [];
            for (let m = f (x); m.isJust; m = f (m.value[1])) {
-             result .push (m.value[0]);
+             result.push (m.value[0]);
            }
            return result;
          });
@@ -3045,7 +3045,7 @@ See https://github.com/sanctuary-js/sanctuary-def/tree/v${version}#FiniteNumber 
              Z.reduce ((xs, x) => {
                let idx = 0;
                while (idx < xs.length && Z.lte (xs[idx], x)) idx += 1;
-               xs .splice (idx, 0, x);
+               xs.splice (idx, 0, x);
                return xs;
              }, [], m)
            );
