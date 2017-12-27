@@ -2418,11 +2418,14 @@
       var numArgsExpected = isThunk ? 0 : expType.keys.length - 1;
       var typeVarMap = _typeVarMap;
       return function(x) {
-        var args = slice.call(arguments);
-        if (args.length !== numArgsExpected) {
-          throw invalidArgumentsLength(typeInfo, index, numArgsExpected, args);
+        if (arguments.length !== numArgsExpected) {
+          throw invalidArgumentsLength(typeInfo,
+                                       index,
+                                       numArgsExpected,
+                                       slice.call(arguments));
         }
 
+        var args = arguments;
         typeVarMap = assertRight(
           init(expType.keys).reduce(function(either, k, idx) {
             var arg = args[idx];
@@ -2432,7 +2435,7 @@
           }, Right(typeVarMap))
         );
 
-        var output = value.apply(this, args);
+        var output = value.apply(this, arguments);
         var k = last(expType.keys);
         typeVarMap = assertRight(checkValue(typeVarMap, index, k, output));
         return output;
@@ -2479,9 +2482,8 @@
 
     var wrapped = typeInfo.types[0].type === NO_ARGUMENTS ?
       function() {
-        var args = slice.call(arguments);
-        if (args.length !== 0) {
-          throw invalidArgumentsCount(typeInfo, 0, 0, args);
+        if (arguments.length !== 0) {
+          throw invalidArgumentsCount(typeInfo, 0, 0, slice.call(arguments));
         }
         var value = impl();
         var typeVarMap = assertRight(
