@@ -1604,18 +1604,15 @@
 
   //  xprod :: (Type, Array Type, Array Type) -> Array Type
   function xprod(t, $1s, $2s) {
-    var specialize = BinaryType(t.name)
-                               (t.url)
-                               (t._test)
-                               (t.types.$1.extractor)
-                               (t.types.$2.extractor);
-    var $types = [];
-    $1s.forEach(function($1) {
-      $2s.forEach(function($2) {
-        $types.push(specialize($1)($2));
-      });
-    });
-    return $types;
+    return Z.chain(
+      function(specialize) { return Z.map(specialize, $2s); },
+      Z.map(BinaryType(t.name)
+                      (t.url)
+                      (t._test)
+                      (t.types.$1.extractor)
+                      (t.types.$2.extractor),
+            $1s)
+    );
   }
 
   //# EnumType :: String -> String -> Array Any -> Type
