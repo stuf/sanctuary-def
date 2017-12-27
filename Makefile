@@ -30,6 +30,15 @@ lint:
 	$(REMEMBER_BOWER) $(shell pwd)
 	rm -f README.md
 	VERSION=0.0.0 make README.md
+	$(ESLINT) \
+	  --config node_modules/sanctuary-style/eslint-es6.json \
+	  --env node \
+	  --ignore-pattern !.eslintrc.markdown.js \
+	  --rule 'dot-notation: [off]' \
+	  -- .eslintrc.markdown.js
+	$(ESLINT) \
+	  --config .eslintrc.markdown.js \
+	  -- README.md
 	$(REMARK) \
 	  --use remark-lint-no-undefined-references \
 	  --use remark-lint-no-unused-definitions \

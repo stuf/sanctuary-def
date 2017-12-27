@@ -28,13 +28,13 @@
 //.
 //. ```javascript
 //. //    Integer :: Type
-//. const Integer = ...;
+//. const Integer = '...';
 //.
 //. //    NonZeroInteger :: Type
-//. const NonZeroInteger = ...;
+//. const NonZeroInteger = '...';
 //.
 //. //    env :: Array Type
-//. const env = $.env .concat ([Integer, NonZeroInteger]);
+//. const env = $.env.concat ([Integer, NonZeroInteger]);
 //. ```
 //.
 //. Type constructors such as `List :: Type -> Type` cannot be included in
@@ -43,7 +43,7 @@
 //.
 //. ```javascript
 //. //    env :: Array Type
-//. const env = $.env .concat ([
+//. const env = $.env.concat ([
 //.   List ($.Number),                // :: Type
 //.   List ($.String),                // :: Type
 //.   List (List ($.Number)),         // :: Type
@@ -58,7 +58,7 @@
 //.
 //. ```javascript
 //. //    env :: Array Type
-//. const env = $.env .concat ([List ($.Unknown)]);
+//. const env = $.env.concat ([List ($.Unknown)]);
 //. ```
 //.
 //. The next step is to define a `def` function for the environment:
@@ -1519,14 +1519,14 @@
   //.   ('my-package/Rank')
   //.   ('http://example.com/my-package#Rank')
   //.   (x => typeof x === 'string' &&
-  //.         /^(A|2|3|4|5|6|7|8|9|10|J|Q|K)$/ .test (x));
+  //.         /^(A|2|3|4|5|6|7|8|9|10|J|Q|K)$/.test (x));
   //.
   //. //    Suit :: Type
   //. const Suit = $.NullaryType
   //.   ('my-package/Suit')
   //.   ('http://example.com/my-package#Suit')
   //.   (x => typeof x === 'string' &&
-  //.         /^[\u2660\u2663\u2665\u2666]$/ .test (x));
+  //.         /^[\u2660\u2663\u2665\u2666]$/.test (x));
   //.
   //. //    Card :: Type
   //. const Card = $Pair (Rank) (Suit);
@@ -1932,7 +1932,7 @@
   //. def ('_concat')
   //.     ({})
   //.     ([a, a, a])
-  //.     (x => y => x .concat (y));
+  //.     (x => y => x.concat (y));
   //.
   //. _concat ('fizz') ('buzz');
   //. // => 'fizzbuzz'
@@ -1989,7 +1989,7 @@
   //. def ('concat')
   //.     ({a: [Semigroup]})
   //.     ([a, a, a])
-  //.     (x => y => x .concat (y));
+  //.     (x => y => x.concat (y));
   //.
   //. concat ([1, 2]) ([3, 4]);
   //. // => [1, 2, 3, 4]
